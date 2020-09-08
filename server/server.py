@@ -1,0 +1,12 @@
+from flask import Flask, request, jsonify
+app = Flask(__name__)
+
+@app.route('/hello')
+def hello():
+    return "Hi"
+
+@app.route('/')
+
+if __name__ == "__main__":
+    print("Starting Python Flask Server for Cats Vs. Dogs Prediction...")
+    app.run()
