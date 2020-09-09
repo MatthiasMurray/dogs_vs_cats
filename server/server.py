@@ -5,7 +5,6 @@ app = Flask(__name__)
 def hello():
     return "Hi"
 
-@app.route('/')
 
 if __name__ == "__main__":
     print("Starting Python Flask Server for Cats Vs. Dogs Prediction...")
