@@ -6,6 +6,7 @@ from flask import jsonify
 from flask import send_from_directory
 from werkzeug.utils import secure_filename
 from keras.models import model_from_json
+from jinja2 import Environment
 
 UPLOAD_FOLDER = '/Users/Matthias/Documents/DataScience/fullstack/dogs_vs_cats/server/artifacts/'
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
@@ -36,7 +37,7 @@ def upload_file():
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             uploaded_files.add(filename)
     
-    return '''
+    jh = '''
     <!doctype html>
     <title>Upload new File</title>
     <h1>Upload new File</h1>
@@ -57,6 +58,7 @@ def upload_file():
         {% endfor %}
     </table>
     '''
+    return Environment().from_string(jh).render(title='Uploads')
 
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):
@@ -67,13 +69,14 @@ def uploaded_file(filename):
 def predict_image(imgnum):
     zbasednum=imgnum-1
     imgs = os.listdir('../artifacts')
-    filename = imgs[zbasednum]
+    #filename = imgs[zbasednum]
     json_file = open('../artifacts/model.json','r')
     loaded_model_json = json_file.read()
     json_file.close()
     loaded_model = model_from_json(loaded_model_json)
     loaded_model.load_weights("../artifacts/model_catsdogs_cpu.h5")
     loaded_model.compile(loss='categorical_crossentropy', optimizer='rmsprop', metrics=['accuracy'])
+    return 'prediction not yet supported'
 
 
 @app.route('/hello')
