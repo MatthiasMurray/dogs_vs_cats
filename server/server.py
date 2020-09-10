@@ -67,8 +67,8 @@ def uploaded_file(filename):
 
 @app.route('/predict/<imgnum>')
 def predict_image(imgnum):
-    zbasednum=imgnum-1
-    imgs = os.listdir('../artifacts')
+    #zbasednum=imgnum-1
+    #imgs = os.listdir('../artifacts')
     #filename = imgs[zbasednum]
     json_file = open('../artifacts/model.json','r')
     loaded_model_json = json_file.read()
